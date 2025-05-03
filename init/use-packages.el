@@ -1,5 +1,11 @@
 ;; -*- lexical-binding: t -*-
 
+(eval-when-compile
+  (require 'cl-lib))
+(require 'seq)
+
+
+
 ;;;;
 ;;;; Package Configuration
 ;;;;

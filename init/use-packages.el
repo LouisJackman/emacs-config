@@ -23,6 +23,8 @@
 (defun init--use-third-party-packages ()
   (use-package dockerfile-mode)
   (use-package elfeed)
+  (use-package elpher)
+  (use-package ement)
 
   (use-package evil
     :defer nil
@@ -118,6 +120,8 @@
   (use-package kubed)
   (use-package magit)
   (use-package markdown-mode)
+  (use-package mastodon)
+  (use-package mentor)
 
   (use-package neotree
     :defer nil

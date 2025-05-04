@@ -187,8 +187,8 @@
 
 (defun init--set-font-based-on-mode ()
   "Set the current buffer font based on the current major mode."
-  (setf buffer-face-mode-face (list :family init--preferred-serif-font
-                                    :height init--preferred-font-height))
+  (setopt buffer-face-mode-face (list :family init--preferred-serif-font
+                                      :height init--preferred-font-height))
   (buffer-face-mode 1))
 
 
@@ -202,7 +202,7 @@
 
 
 (defun init--prog-text-mode-hook-func ()
-  (setf indicate-empty-lines t)
+  (setopt indicate-empty-lines t)
   (hl-line-mode)
   (display-line-numbers-mode))
 
@@ -225,7 +225,7 @@
       (global-set-key key command)))
 
   (setf (get 'dired-find-alternate-file 'disabled) nil)
-  (setf inhibit-startup-echo-area-message (user-login-name))
+  (setopt inhibit-startup-echo-area-message (user-login-name))
 
   ;; Only enable it if it's built-in (as of Emacs 30.1).
   (when (fboundp 'which-key-mode)

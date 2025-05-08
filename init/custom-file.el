@@ -38,6 +38,7 @@
  '(size-indication-mode t)
  '(tab-always-indent 'complete)
  '(tab-bar-mode t)
+ '(tab-width 4)
  '(tool-bar-mode nil)
  '(use-package-always-defer t)
  '(use-package-always-ensure t)

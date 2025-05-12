@@ -238,6 +238,7 @@
   (icomplete-vertical-mode)
   (pixel-scroll-precision-mode)
   (auto-fill-mode)
+  (visual-line-mode)
   (windmove-default-keybindings))
 
 
@@ -343,9 +344,8 @@
   (unwind-protect
 
       (let ((use-third-party-packages
-             (if (boundp 'init--additional-configuration--use-third-party-packages)
-                 init--additional-configuration--use-third-party-packages
-               nil)))
+             (when (boundp 'init--additional-configuration--use-third-party-packages)
+               init--additional-configuration--use-third-party-packages)))
         (funcall body use-third-party-packages))
 
     (if (fboundp 'init--additional-configuration--post-init)

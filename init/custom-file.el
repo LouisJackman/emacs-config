@@ -33,6 +33,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(package-selected-packages nil)
+ '(ring-bell-function 'ignore)
  '(save-place-mode t)
  '(scroll-conservatively 101)
  '(size-indication-mode t)

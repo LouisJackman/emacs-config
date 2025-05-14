@@ -15,12 +15,12 @@
   '(prog
     text))
 
-
-(defun init--use-built-in-packages ()
-  nil)
-
-
 (defun init--use-third-party-packages ()
+
+  ;; Install this first, so that subsequent `use-package` invocations respect
+  ;; the `:diminish` option.
+  (use-package diminish)
+
   (use-package dockerfile-mode)
   (use-package elfeed)
   (use-package elpher)
@@ -99,6 +99,7 @@
   (use-package evil-args
     :after (evil))
   (use-package evil-escape
+    :diminish evil-escape-mode
     :after (evil))
   (use-package evil-exchange
     :after (evil))
@@ -151,9 +152,12 @@
     :demand t
     :bind ("C-x C-t" . vterm))
 
-  (use-package which-key)
+  (use-package which-key
+    :diminish which-key-mode)
+
   (use-package yaml-mode)
-  (use-package yasnippet))
+  (use-package yasnippet
+    :diminish yas-minor-mode))
 
 
 (defun init--use-built-in-substitutes-for-third-party-packages ()
@@ -166,7 +170,7 @@
     ;; Only enable Viper once a hook for a relevant buffer type is
     ;; triggered. Explicitly disable this variable before requiring the
     ;; package, to disable the "Viperise" startup prompt.
-    (setf viper-mode nil)
+    (setopt viper-mode nil)
 
     :config
     (seq-doseq (mode-name init--modes-to-enable-vim-emulation)
@@ -179,9 +183,23 @@
     :bind ("C-x C-t" . term)))
 
 
+;; Configure built-in packages after third party packages, to a) ensure their
+;; changes take priority, and b) allow them to use the `:diminish` keyword if
+;; the third party `diminish` package is installed.
+(defun init--use-built-in-packages ()
+  (use-package autorevert
+    :diminish auto-revert-mode)
+  (use-package flymake
+    :diminish flymake-mode)
+  (use-package face-remap
+    :diminish buffer-face-mode)
+  (use-package eldoc
+    :diminish eldoc-mode))
+
+
 (cl-defun init--use-packages (&key use-third-party)
-  (init--use-built-in-packages)
   (if use-third-party
       (init--use-third-party-packages)
-    (init--use-built-in-substitutes-for-third-party-packages)))
+    (init--use-built-in-substitutes-for-third-party-packages))
+  (init--use-built-in-packages))
 

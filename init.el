@@ -201,9 +201,24 @@
                         :height init--preferred-font-height)))
 
 
+(defun init--set-global-keybindings ()
+  (seq-doseq (entry init--global-bindings)
+    (pcase-let ((`(,key . ,command) entry))
+      (global-set-key key command)))
+
+  ;; On macOS, swap the option and command keys, to match physical location of
+  ;; keybindings on other platforms. Do this in Emacs rather than in
+  ;; macOS. That way, macOS keybindings work elsewhere as expected, while
+  ;; Emacs retains consistent "muscle memory" across all platforms.
+  (when (equal system-type 'darwin)
+    (setopt mac-option-modifier 'super)
+    (setopt mac-command-modifier 'meta)))
+
+
 (defun init--prog-text-mode-hook-func ()
   (setopt indicate-empty-lines t)
   (hl-line-mode)
+  (display-fill-column-indicator-mode)
   (display-line-numbers-mode))
 
 
@@ -219,10 +234,6 @@
 
   (add-hook 'text-mode-hook 'init--set-font-based-on-mode)
   (add-hook 'markdown-mode-hook 'init--monospace-markdown-code-font)
-
-  (seq-doseq (entry init--global-bindings)
-    (pcase-let ((`(,key . ,command) entry))
-      (global-set-key key command)))
 
   (setf (get 'dired-find-alternate-file 'disabled) nil)
   (setopt inhibit-startup-echo-area-message (user-login-name))
@@ -404,6 +415,7 @@
      (init--configure-path)
      (init--configure-ui)
      (init--misc-config)
+     (init--set-global-keybindings)
      (init--enable-lsp)
      (init--prefer-ts-modes))))
 

@@ -41,6 +41,7 @@
  '(tab-bar-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
+ '(truncate-lines t)
  '(use-package-always-defer t)
  '(use-package-always-ensure t)
  '(use-short-answers t)

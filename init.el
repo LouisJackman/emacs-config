@@ -249,7 +249,6 @@
   (icomplete-vertical-mode)
   (pixel-scroll-precision-mode)
   (auto-fill-mode)
-  (visual-line-mode)
   (windmove-default-keybindings))
 
 

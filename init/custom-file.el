@@ -15,6 +15,7 @@
  '(column-number-mode t)
  '(debug-on-error t)
  '(desktop-save-mode t)
+ '(eat-term-name "xterm-256color")
  '(elfeed-feeds
    '(("https://www.debian.org/security/dsa-long.en.rdf" infosec)
      ("https://feeds.feedburner.com/feedburner/Talos?format=xml" infosec)
@@ -22,7 +23,7 @@
      ("https://asert.arbornetworks.com/feed/" infosec)
      ("https://www.schneier.com/feed/atom" infosec)
      ("https://portswigger.net/daily-swig/rss" infosec)))
- '(evil-escape-excluded-major-modes '(vterm-mode))
+ '(evil-escape-excluded-major-modes '(eat))
  '(evil-escape-key-sequence [102 100])
  '(evil-undo-system 'undo-redo)
  '(evil-want-C-g-bindings t)
@@ -44,8 +45,7 @@
  '(truncate-lines t)
  '(use-package-always-defer t)
  '(use-package-always-ensure t)
- '(use-short-answers t)
- '(vterm-always-compile-module t))
+ '(use-short-answers t))
 
 
 (custom-set-faces

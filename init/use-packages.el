@@ -147,10 +147,10 @@
 
   (use-package sqlite3)
 
-  (use-package vterm
+  (use-package eat
     :defer nil
     :demand t
-    :bind ("C-x C-t" . vterm))
+    :bind ("C-x C-t" . eat))
 
   (use-package which-key
     :diminish which-key-mode)

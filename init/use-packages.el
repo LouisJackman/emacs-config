@@ -88,7 +88,7 @@
 
        (normal "<leader>tn" #'tab-new)
 
-       (normal "C-n" 'init--toggle-neotree-in-window-excursion)
+       (normal "C-n" #'init--toggle-neotree-in-window-excursion)
 
        (normal "<leader>ff" #'project-find-file)
        (normal "<leader>fg" #'project-find-regexp)

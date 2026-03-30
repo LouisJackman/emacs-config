@@ -2,7 +2,7 @@
 
 An [Emacs](https://www.gnu.org/software/emacs/) configuration that assumes:
 
-- **Vanilla Emacs** as a base. At least version 29.
+- **Vanilla Emacs** as a base. At least version 29.1.
 - **[Vim](https://www.vim.org/)-like keybindings** via
   [evil-mode](https://github.com/emacs-evil/evil) while editing code and
   prose, but normal Emacs keybindings elsewhere to avoid sprawling keymap
@@ -43,13 +43,5 @@ An [Emacs](https://www.gnu.org/software/emacs/) configuration that assumes:
   over `setq` and `setcar`, `equal` unless a more specific equality function
   is necessary, etc.
 
-TODO:
-
-- [ ] Better support running as a service, e.g. `systemctl enable --now --user
-   emacs`.
-- [ ] Polish the treesitter and LSP integrations more, and enable by default.
-- [ ] Enable live previews of in-project grepping and file-finding.
-- [ ] Pinning of third party package commits. Not obviously viable with
-      `package.el` unless getting packages directly from their VCS
-      source. `straight.el` could be another approach.
+See [TODO.md](TODO.md) for planned work.
 

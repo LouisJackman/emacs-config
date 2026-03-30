@@ -115,7 +115,6 @@
   (use-package evil-visualstar
     :after (evil))
 
-  (use-package flymake)
   (use-package json-mode)
   (use-package kubed)
   (use-package magit)

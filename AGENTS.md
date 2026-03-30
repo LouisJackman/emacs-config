@@ -249,6 +249,10 @@ To disable all third-party packages, set `init--additional-configuration--use-th
 
 Only configure for upstream **GNU Emacs**. Third-party builds of Emacs (e.g. the native macOS ns build) must not be considered. `ns-*` variables and functions are fine when they exist in the upstream GNU build itself — the restriction is against symbols that exist only in third-party builds, not against the `ns-` prefix per se. When platform-specific behaviour is needed on macOS, prefer OS-level CLI tools (e.g. `defaults read`) that work regardless of Emacs build, unless a GNU Emacs built-in covers the need.
 
+### Local-only files
+
+Do not change `init/additional-configuration.el`. It holds machine-specific overrides (e.g. `init--additional-configuration--use-third-party-packages`) that are managed by the user per-machine.
+
 ### Validating Elisp edits
 
 After editing any `.el` file, batch-check for syntax errors. Use a depth-tracking script to detect parenthesis mismatches — do not count parens manually.

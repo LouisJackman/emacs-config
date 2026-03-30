@@ -183,8 +183,11 @@
         init--add-mode-hook-suffix
         (add-hook 'viper-mode))))
 
-  (use-package term
-    :bind ("C-x C-t" . term)))
+  (if (equal system-type 'windows-nt)
+      (use-package shell
+        :bind ("C-x C-t" . shell))
+    (use-package term
+      :bind ("C-x C-t" . term))))
 
 
 ;; Configure built-in packages after third party packages, to a) ensure their

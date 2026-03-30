@@ -148,10 +148,13 @@
         'dark
       'light))
 
-   ;; macOS
+   ;; macOS — `defaults read -g AppleInterfaceStyle` prints "Dark" and exits 0
+   ;; in dark mode; the key is absent (exit 1) in light mode.
    ((and (equal system-type 'darwin)
-         (fboundp 'ns-system-appearance))
-    (if (equal (ns-system-appearance) "dark")
+         (executable-find "defaults"))
+    (if (string-match-p "Dark"
+                        (shell-command-to-string
+                         "defaults read -g AppleInterfaceStyle"))
         'dark
       'light))
 

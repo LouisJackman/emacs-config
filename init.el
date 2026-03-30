@@ -81,16 +81,21 @@
   '(("melpa-stable" . "https://stable.melpa.org/packages/")
     ("melpa"        . "https://melpa.org/packages/")))
 
-                  
 (defconst init--additional-configuration
   (file-name-concat init--dir
                    "additional-configuration"))
 
 
-(defconst init--preferred-monospace-font "FiraCode Nerd Font 14")
-(defconst init--preferred-serif-font (if (equal system-type 'darwin)
-                                         "Baskerville"
-                                         "Liberation Serif"))
+(defconst init--preferred-monospace-font
+  (cond ((equal system-type 'darwin)     "Andale Mono 14")
+        ((equal system-type 'windows-nt) "Consolas 14")
+        (t                               "Liberation Mono 14")))
+
+(defconst init--preferred-serif-font
+  (cond ((equal system-type 'darwin)     "Baskerville")
+        ((equal system-type 'windows-nt) "Cambria")
+        (t                               "Liberation Serif")))
+
 (defconst init--preferred-font-height 200)
 
 

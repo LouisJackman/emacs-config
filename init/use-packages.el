@@ -150,6 +150,12 @@
     :demand t
     :bind ("C-x C-t" . eat))
 
+  (use-package claude-code
+    :vc (:url "https://github.com/stevemolitor/claude-code.el"
+         :rev "4a9914bd4161eb43f489820f9174c62390e5adc8")
+    :config
+    (setopt claude-code-terminal-backend 'eat))
+
   (use-package which-key
     :diminish which-key-mode)
 

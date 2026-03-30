@@ -275,53 +275,56 @@
 
 (defun init--configure-path ()
 
-  (cl-flet ((as-pair (entry)
-              (pcase-let* ((`(,name . ,value-fragments)
-                            (string-split entry "=" t "\\s*"))
-                           (values
-                            (thread-first
-                              value-fragments
-                              string-join
-                              (string-split ":"))))
-                (cons name values)))
+  (cl-flet ((split-and-add-path (raw-path)
+              (seq-each (apply-partially #'add-to-list 'exec-path)
+                        (string-split raw-path path-separator t "\\s*")))
 
-            (path-p (entry)
-              (pcase-let ((`(,name . _) entry))
-                (equal name "PATH")))
+            (find-path-in-env (env-lines)
+              (let ((found (seq-find
+                            (lambda (line)
+                              (let ((sep (string-search "=" line)))
+                                (and sep
+                                     (equal (substring line 0 sep) "PATH"))))
+                            env-lines)))
+                (when found
+                  (substring found (1+ (string-search "=" found)))))))
 
-            (add-to-exec-path (addenda)
-              (seq-each (apply-partially #'add-to-list
-                                         'exec-path)
-                        addenda)))
+    ;; Assume terminal Emacs already has PATH correctly set up,
+    ;; due to being invoked from a shell.
+    (when (display-graphic-p)
 
-    (pcase-let* ((env-lines
+      (condition-case nil
+          (cond
 
-                  ;; Assume terminal Emacs already has PATH correctly set up,
-                  ;; due to being invoked from a shell.
-                  (when (display-graphic-p)
+           ((equal system-type 'windows-nt)
+            (split-and-add-path
+             (string-join
+              (process-lines
+               "powershell" "-NoProfile" "-Command"
+               (string-join
+                '("[Environment]::GetEnvironmentVariable('PATH','User')"
+                  "+"
+                  "';'"
+                  "+"
+                  "[Environment]::GetEnvironmentVariable('PATH','Machine')")
+                " "))
+              "")))
 
+           (t
+            (let* ((env-lines
                     (condition-case nil
+                        ;; Try zsh first, in the case of macOS without
+                        ;; administrative powers to change the default
+                        ;; shell to a modern version of bash.
+                        (process-lines "zsh" "-l" "-c" "source ~/.zshrc && env")
+                      (file-missing
 
-                        (condition-case nil
-                            ;; Try zsh first, in the case of macOS without
-                            ;; administrative powers to change the default
-                            ;; shell to a modern version of bash.
-                            (process-lines "zsh" "-l" "-c" "source ~/.zshrc && env")
-                          (file-missing
-
-                           ;; Otherwise, try bash.
-                           (process-lines "bash" "-l" "-c" "source ~/.bashrc && env")))
-
-                      ;; Return an empty environment for platforms without zsh
-                      ;; or bash.
-                      (file-missing nil))))
-
-                 (`(_ . ,paths) (thread-last
-                                  env-lines
-                                  (seq-map #'as-pair)
-                                  (seq-find #'path-p))))
-      (when paths
-        (add-to-exec-path paths)))))
+                       ;; Otherwise, try bash.
+                       (process-lines "bash" "-l" "-c" "source ~/.bashrc && env"))))
+                   (raw-path (find-path-in-env env-lines)))
+              (when raw-path
+                (split-and-add-path raw-path)))))
+        (file-missing nil)))))
 
 
 (defun init--open-user-init-file ()

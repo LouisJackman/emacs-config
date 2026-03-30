@@ -19,7 +19,6 @@
 (require 'package)
 (require 'use-package)
 (require 'use-package-ensure)
-(require 'seq)
 
 
 ;; Customisations

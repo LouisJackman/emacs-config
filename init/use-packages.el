@@ -148,7 +148,28 @@
   (use-package eat
     :defer nil
     :demand t
-    :bind ("C-x C-t" . eat))
+    :bind ("C-x C-t" . eat)
+    :config
+
+    (defvar-local init--eat-ignore-cursor-reset-enabled nil
+      "When non-nil, ignore Eat cursor style reset escape sequences.")
+
+    ;; Codex CLI emits CSI 0 SP q repeatedly while redrawing its TUI.  Eat
+    ;; treats that as a cursor-style reset, which causes visible flickering.
+    ;;
+    ;; For more context, see: https://github.com/openai/codex/issues/21828
+    (defun init--eat-ignore-cursor-reset (original-function style)
+      (unless (and init--eat-ignore-cursor-reset-enabled
+                   (equal style 0))
+        (funcall original-function style)))
+
+    (defun init--enable-eat-codex-cursor-reset-workaround ()
+      (setf init--eat-ignore-cursor-reset-enabled t))
+
+    (advice-add 'eat--t-set-cursor-style
+                :around #'init--eat-ignore-cursor-reset)
+    (add-hook 'eat-mode-hook
+              'init--enable-eat-codex-cursor-reset-workaround))
 
   (use-package claude-code
     :vc (:url "https://github.com/stevemolitor/claude-code.el"

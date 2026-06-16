@@ -1,11 +1,11 @@
-# AI Agent Instructions — Emacs Configuration
+# emacs-config - AI Coding Agent Instructions
 
-Canonical instructions for all AI coding assistants. Tool-specific files are symlinks to this file:
-- `CLAUDE.md` → `AGENTS.md`
-- `.cursorrules` → `AGENTS.md`
-- `.github/copilot-instructions.md` → `AGENTS.md`
+Canonical instructions for AI coding agents working in this repository. Tool-specific entrypoints symlink to this file where supported:
+- `CLAUDE.md`
+- `.cursorrules`
+- `.github/copilot-instructions.md`
 
-## Overview
+## Project Overview
 
 Personal Emacs configuration using Evil mode for Vim keybindings with spacebar as the leader key, and a strong preference for built-in packages over third-party alternatives.
 

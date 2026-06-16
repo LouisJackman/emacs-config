@@ -15,6 +15,7 @@
  '(column-number-mode t)
  '(debug-on-error t)
  '(desktop-save-mode t)
+ '(eat-kill-buffer-on-exit t)
  '(eat-term-name "xterm-256color")
  '(elfeed-feeds
    '(("https://www.debian.org/security/dsa-long.en.rdf" infosec)

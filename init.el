@@ -39,6 +39,8 @@
 
 (load (file-name-concat init--dir
                         "use-packages"))
+(load (file-name-concat init--dir
+                        "hangul-keyboard-hint"))
 
 
 
@@ -101,7 +103,6 @@
 
 (defconst init--preferred-light-theme 'modus-operandi)
 (defconst init--preferred-dark-theme 'modus-vivendi)
-
 
 
 ;;;
@@ -261,7 +262,8 @@
 
 (defun init--configure-ui ()
   (when (display-graphic-p)
-    (scroll-bar-mode -1)))
+    (scroll-bar-mode -1))
+  (init--configure-hangul-keyboard-hint))
 
 
 (defun init--configure-packaging ()
@@ -436,4 +438,3 @@
 
 
 (init--configure)
-
